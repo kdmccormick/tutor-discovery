@@ -32,23 +32,24 @@ config = {
 }
 
 # Initialization tasks
-tutor_hooks.Filters.COMMANDS_INIT.add_item(
-    (
-        "mysql",
-        ("discovery", "tasks", "mysql", "init"),
-    )
-)
-tutor_hooks.Filters.COMMANDS_INIT.add_item(
-    (
-        "lms",
-        ("discovery", "tasks", "lms", "init"),
-    )
-)
-tutor_hooks.Filters.COMMANDS_INIT.add_item(
-    (
-        "discovery",
-        ("discovery", "tasks", "discovery", "init"),
-    )
+tutor_hooks.Filters.JOB_TASKS.add_items(
+    [
+        (
+            "init",
+            "mysql",
+            ("sh", "/openedx/tasks/discovery/mysql/init"),
+        ),
+        (
+            "init",
+            "lms",
+            ("sh", "/openedx/tasks/discovery/lms/init"),
+        ),
+        (
+            "init",
+            "discovery",
+            ("sh", "/openedx/tasks/discovery/discovery/init"),
+        ),
+    ]
 )
 
 # Image management
@@ -86,11 +87,12 @@ def _mount_course_discovery(mounts, name):
 tutor_hooks.Filters.ENV_TEMPLATE_ROOTS.add_item(
     pkg_resources.resource_filename("tutordiscovery", "templates")
 )
-# Render the "build" and "apps" folders
+# Render the "build", "apps", and "tasks" folders
 tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     [
         ("discovery/build", "plugins"),
         ("discovery/apps", "plugins"),
+        ("discovery/tasks", "plugins"),
     ],
 )
 # Load patches from files
