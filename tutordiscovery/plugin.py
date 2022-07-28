@@ -92,7 +92,6 @@ tutor_hooks.Filters.ENV_TEMPLATE_TARGETS.add_items(
     [
         ("discovery/build", "plugins"),
         ("discovery/apps", "plugins"),
-        ("discovery/tasks", "plugins"),
     ],
 )
 # Load patches from files

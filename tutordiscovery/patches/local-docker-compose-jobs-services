@@ -4,10 +4,6 @@ discovery-job:
     DEFAULT_PARTNER_CODE: openedx
   volumes:
     - ../plugins/discovery/apps/settings/tutor:/openedx/discovery/course_discovery/settings/tutor:ro
-    - ../plugins/discovery/tasks:/openedx/tasks/discovery
+    - ../tasks:/openedx/tasks:ro
   depends_on: {{ [("lms", RUN_LMS), ("mysql", RUN_MYSQL)]|list_if }}
 
-# TODO: need to do this is a patch
-# lms-job:
-#  volumes:
-#    - ../plugins/discovery/tasks:/openedx/tasks/discovery
